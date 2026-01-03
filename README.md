@@ -19,8 +19,11 @@ and predict future energy demand using data analysis and machine learning techni
 - GitHub
 
 ## 📂 Project Structure
+## 📂 Project Structure
+
+```text
 smart-city-energy-analytics/
-│ 
+│
 ├── data/
 │   ├── raw/                # Raw datasets
 │   └── processed/          # Cleaned datasets
