@@ -1,1 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Smart City Energy Dashboard</title>
+
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1d2671, #c33764);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #333;
+        }
+
+        .dashboard {
+            background: #ffffff;
+            width: 900px;
+            max-width: 95%;
+            border-radius: 14px;
+            padding: 30px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+            animation: fadeIn 0.8s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            color: #1d2671;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 14px;
+            color: #777;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+
+        .card {
+            background: #f9f9fb;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: #444;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #1d2671, #c33764);
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            background: #e8f5e9;
+            color: #2e7d32;
+            font-weight: 600;
+        }
+
+        .error {
+            background: #fdecea;
+            color: #b71c1c;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        table th, table td {
+            border-bottom: 1px solid #ddd;
+            padding: 6px;
+            text-align: center;
+        }
+
+        table th {
+            background: #efefef;
+        }
+
+        canvas {
+            margin-top: 15px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 12px;
+            color: #777;
+        }
+
+        @media(max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="dashboard">
+    <h1>⚡ Smart City Energy Dashboard</h1>
+    <div class="subtitle">Machine Learning Based Energy Demand Prediction</div>
+
+    <div class="grid">
+        <!-- INPUT FORM -->
+        <div class="card">
+            <h3>🔢 Enter Input Parameters</h3>
+            <form method="POST">
+                <input type="number" name="hour" placeholder="Hour (0–23)" required>
+                <input type="number" name="day" placeholder="Day (1–31)" required>
+                <input type="number" name="month" placeholder="Month (1–12)" required>
+                <input type="number" name="weekday" placeholder="Weekday (0=Mon)" required>
+                <input type="number" name="is_weekend" placeholder="Weekend (1=Yes, 0=No)" required>
+                <input type="number" name="lag_1" placeholder="Previous Hour Energy (MW)" required>
+
+                <button type="submit">🔮 Predict Energy</button>
+            </form>
+
+            {% if error %}
+            <div class="result error">{{ error }}</div>
+            {% endif %}
+
+            {% if prediction %}
+            <div class="result">
+                Predicted Energy Demand<br>
+                <strong>{{ prediction }} MW</strong>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- HISTORY + CHART -->
+        <div class="card">
+            <h3>📊 Prediction History</h3>
+
+            {% if history %}
+            <table>
+                <tr>
+                    <th>Hour</th>
+                    <th>Month</th>
+                    <th>Lag</th>
+                    <th>MW</th>
+                </tr>
+                {% for row in history %}
+                <tr>
+                    <td>{{ row.hour }}</td>
+                    <td>{{ row.month }}</td>
+                    <td>{{ row.lag_1 }}</td>
+                    <td>{{ row.predicted_energy }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+
+            <canvas id="energyChart"></canvas>
+
+            <script>
+                const labels = {{ history | map(attribute='hour') | list | safe }};
+                const values = {{ history | map(attribute='predicted_energy') | list | safe }};
+
+                new Chart(document.getElementById("energyChart"), {
+                    type: "line",
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: "Predicted Energy (MW)",
+                            data: values,
+                            borderColor: "#c33764",
+                            backgroundColor: "rgba(195,55,100,0.1)",
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    }
+                });
+            </script>
+            {% else %}
+            <p>No prediction history yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <footer>
+        Built with Flask · Machine Learning · Data Science
+    </footer>
+</div>
+
+</body>
+</html>
 
