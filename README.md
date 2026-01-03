@@ -19,7 +19,6 @@ and predict future energy demand using data analysis and machine learning techni
 - GitHub
 
 ## 📂 Project Structure
-## 📂 Project Structure
 
 ```text
 smart-city-energy-analytics/
@@ -45,6 +44,7 @@ smart-city-energy-analytics/
 ├── requirements.txt
 └── README.md
 
+```
 ---
 
 ## 📊 Data Analysis (EDA)
