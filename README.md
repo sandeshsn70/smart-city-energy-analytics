@@ -1,22 +1,57 @@
-# Smart City Energy Analytics & Demand Prediction
+# ⚡ Smart City Energy Analytics & Demand Prediction
+
+An end-to-end **Data Analysis + Data Science + Web Application** project that analyzes
+hourly energy consumption data and predicts future energy demand using machine learning.
+The project also includes a **Flask-based web dashboard** with validation, charts, and
+prediction history.
+
+---
 
 ## 📌 Project Overview
-This project analyzes smart city energy consumption data to identify usage patterns
-and predict future energy demand using data analysis and machine learning techniques.
+
+Smart cities generate large volumes of energy consumption data, but without proper
+analysis, it is difficult to identify patterns and plan energy usage efficiently.
+
+This project:
+- Performs **exploratory data analysis (EDA)** on time-series energy data
+- Builds **machine learning models** to predict energy demand
+- Deploys predictions using a **Flask REST API**
+- Provides a **modern web UI** for user interaction, visualization, and history tracking
+
+---
 
 ## 🎯 Objectives
-- Analyze historical energy consumption data
-- Identify peak and non-peak usage patterns
-- Build predictive models for energy demand forecasting
-- Visualize insights for decision-making
+
+- Analyze hourly energy consumption trends
+- Identify peak and off-peak usage patterns
+- Perform feature engineering on time-based data
+- Train and evaluate machine learning models
+- Deploy the model using Flask with an interactive UI
+- Visualize prediction history using charts
+
+---
+
+## 🧠 Why This Project Is Strong for Resume
+
+✔ Combines **Data Analysis + Data Science + Deployment**  
+✔ Real-world **Smart City** use case  
+✔ Covers **EDA, ML, API, UI, and visualization**  
+✔ Industry-standard project structure  
+✔ Excellent discussion scope for interviews  
+
+---
 
 ## 🛠️ Tech Stack
-- Python (Pandas, NumPy)
-- Matplotlib, Seaborn
-- Scikit-learn
-- Jupyter Notebook
-- Flask (for deployment)
-- GitHub
+
+- **Programming Language**: Python  
+- **Data Analysis**: Pandas, NumPy  
+- **Visualization**: Matplotlib, Seaborn, Chart.js  
+- **Machine Learning**: Scikit-learn (Linear Regression, Random Forest)  
+- **Web Framework**: Flask  
+- **Notebook**: Jupyter Notebook  
+- **Version Control**: Git & GitHub  
+
+---
 
 ## 📂 Project Structure
 
@@ -24,8 +59,8 @@ and predict future energy demand using data analysis and machine learning techni
 smart-city-energy-analytics/
 │
 ├── data/
-│   ├── raw/                # Raw datasets
-│   └── processed/          # Cleaned datasets
+│   ├── raw/                    # Raw datasets (AEP_hourly.csv)
+│   └── processed/              # Cleaned & feature-engineered data
 │
 ├── notebooks/
 │   ├── 01_data_cleaning_and_eda.ipynb
@@ -33,53 +68,14 @@ smart-city-energy-analytics/
 │   └── 03_model_building.ipynb
 │
 ├── models/
-│   └── energy_demand_model.pkl
+│   └── energy_demand_model.pkl  # Generated locally (not tracked on GitHub)
 │
 ├── app/
-│   └── app.py              # Flask application
-│
-├── dashboards/
-│   └── screenshots/        # EDA & dashboard images
+│   ├── app.py                  # Flask application
+│   ├── templates/
+│   │   └── index.html          # Modern UI (HTML/CSS/JS)
+│   └── data/
+│       └── prediction_history.csv
 │
 ├── requirements.txt
 └── README.md
-
-```
----
-
-## 📊 Data Analysis (EDA)
-- Handled missing values and inconsistent data
-- Analyzed hourly, daily, and monthly energy usage
-- Identified peak demand periods
-- Visualized consumption trends using graphs and charts
-
----
-
-## 🤖 Data Science & Machine Learning
-- Performed feature engineering on time-based data
-- Built and evaluated machine learning models
-- Compared model performance using evaluation metrics
-- Predicted future energy demand
-
-**Models Used:**
-- Linear Regression  
-- Random Forest Regressor  
-- (Future) Time Series Models – ARIMA / Prophet  
-
----
-
-## 📈 Visualizations
-- Energy usage trends
-- Peak vs non-peak demand analysis
-- Correlation analysis
-- Model prediction vs actual values
-
-(Visualization screenshots are available in the `dashboards/` folder)
-
----
-
-## 🚀 How to Run the Project Locally
-```bash
-git clone https://github.com/sandeshsn70/smart-city-energy-analytics.git
-cd smart-city-energy-analytics
-pip install -r requirements.txt
