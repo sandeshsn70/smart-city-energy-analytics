@@ -22,26 +22,25 @@ and predict future energy demand using data analysis and machine learning techni
 smart-city-energy-analytics/
 │
 ├── data/
-│ ├── raw/ # Raw datasets
-│ └── processed/ # Cleaned datasets
+│   ├── raw/                # Raw datasets
+│   └── processed/          # Cleaned datasets
 │
 ├── notebooks/
-│ ├── 01_data_cleaning_and_eda.ipynb
-│ ├── 02_feature_engineering.ipynb
-│ └── 03_model_building.ipynb
+│   ├── 01_data_cleaning_and_eda.ipynb
+│   ├── 02_feature_engineering.ipynb
+│   └── 03_model_building.ipynb
 │
 ├── models/
-│ └── energy_demand_model.pkl
+│   └── energy_demand_model.pkl
 │
 ├── app/
-│ └── app.py # Flask application
+│   └── app.py              # Flask application
 │
 ├── dashboards/
-│ └── screenshots/ # EDA & dashboard images
+│   └── screenshots/        # EDA & dashboard images
 │
 ├── requirements.txt
 └── README.md
-
 
 ---
 
